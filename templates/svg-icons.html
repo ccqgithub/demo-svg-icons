@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>图标浏览</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width" />
+    <style type="text/css">
+    *{
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        background: #ecf4f8;
+        text-align: center;
+    }
+    
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    
+    h1 {
+        margin: .5em 0 .5em 0;
+        padding: .5em;
+        background: white;
+    }
+
+    .clearfix::after{
+        width: 0;
+        height: 0;
+        content: '';
+        overflow: hidden;
+        clear: both;
+        display: block;
+    }
+    
+    .main {
+        display: block;
+        overflow: hidden;
+        padding: 0 .5em;
+    }
+    
+    p {
+        margin: 0;
+        padding: 0 0 .5em;
+    }
+    
+    .icon-box,
+    .icon-wrapper {
+        background: white;
+        margin: .5em;
+        padding: 1em;
+        border-radius: 0;
+    }
+    
+    .icon-box {
+        float: left;
+        display: inline-block;
+        position: relative;
+        padding-bottom: 0;
+        width: 200px;
+    }
+    
+    .icon-wrapper {
+        background-color: #fafafa;
+        background-image: linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc), linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc);
+        background-size: 30px 30px;
+        background-position: 0 0, 15px 15px;
+        margin: auto;
+    }
+    
+    /* can't display none: copy won't work */
+    
+    pre {
+        text-align: left;
+        z-index: 2;
+        pointer-events: none;
+        border-top: 1px solid #eee;
+        margin: 0 -1em;
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+
+    pre code{
+        display: block;
+        padding: 1em;
+    }
+    </style>
+    <link rel="stylesheet" type="text/css" href="./svg-icons.css">
+</head>
+
+<body>
+    <!-- include svg sprites as body's first child -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="si-sprites" style="width:0; height:0; visibility:hidden;">
+        <% if(defs) { %>
+        <defs>
+            <%= defs %>
+        </defs>
+        <% } %>
+        <% _.forEach( icons, function( icon ){ %>
+        <symbol id="si-<%= icon.id %>" viewBox="<%= icon.svg.viewBox %>">
+            <% if (icon.title) {%>
+            <title>
+                <%= icon.title %>
+            </title>
+            <% }%>
+            <%= icon.svg.content %>
+        </symbol>
+        <% }); %>
+    </svg>
+
+        
+    <h1>图标浏览</h1>
+
+    <div class="main clearfix">
+        <% _.each( icons, function( icon ){ %>
+        <div class="icon-box">
+            <p>
+                #si-<%= icon.id %>
+            </p>
+            <div class="icon-wrapper">
+                <svg class="si si-<%= icon.id %>">
+                    <use xlink:href="#si-<%= icon.id %>"></use>
+                </svg>
+            </div>
+            <div class="icon-dev">
+                <pre><code id="code-si-<%= icon.id %>"><%= _.escape('<svg class="si si-') %><%= icon.id %><%= _.escape('">') %><%= _.escape('<use xlink:href="#si-') %><%= icon.id %><%= _.escape('"></use>') %><%= _.escape('</svg>') %></code></pre>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+
+</body>
+</html>

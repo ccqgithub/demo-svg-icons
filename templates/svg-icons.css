@@ -1,0 +1,15 @@
+.si-sprites{
+    display: block;
+    width: 0;
+    height: 0;
+    visibility: hidden;
+    overflow: hidden;
+}
+.si{
+    width: 100px; 
+    height: 100px;
+    color: red;
+}
+.si path{
+    fill: currentColor;
+}
