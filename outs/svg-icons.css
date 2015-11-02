@@ -1,3 +1,6 @@
+
+
+/*svg sprites 样式*/
 .si-sprites{
     display: block;
     width: 0;
@@ -5,11 +8,20 @@
     visibility: hidden;
     overflow: hidden;
 }
+
+/*每一个图标样式*/
 .si{
     width: 100px; 
     height: 100px;
     color: red;
 }
-.si path{
+
+/*图标颜色*/
+.si-symbol path{
     fill: currentColor;
 }
+
+/*--定义各个图标单独的样式--*/
+/*#si-xxx path{
+    fill: #000000;
+}*/

@@ -3,10 +3,19 @@ var gulp = require('gulp');
 var gulpif = require('gulp-if');
 var rename = require('gulp-rename');
 var svgSymbols = require('gulp-svg-symbols');
+var connect = require('gulp-connect');
 
 var customCSSTemplate = path.join(__dirname, './icons.styl');
 
 var renameFunction = function() {};
+
+gulp.task('connect', function() {
+    connect.server({
+        root: 'outs',
+        port: 2222,
+        livereload: true
+    });
+});
 
 gulp.task('sprites', function() {
     return gulp.src('./svgs/*.svg')
@@ -27,5 +36,8 @@ gulp.task('sprites', function() {
             }
         }))
         // .pipe(rename(outputFilesRenameFunction))
-        .pipe(gulp.dest('./outs/'));
+        .pipe(gulp.dest('./outs/'))
+        .pipe(connect.reload());
 });
+
+gulp.task('default', ['connect', 'sprites']);

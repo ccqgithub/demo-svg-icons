@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -96,15 +95,16 @@
 </head>
 
 <body>
+    <% var icon_name = 'si'; %>
     <!-- include svg sprites as body's first child -->
-    <svg xmlns="http://www.w3.org/2000/svg" class="si-sprites" style="width:0; height:0; visibility:hidden;">
+    <svg xmlns="http://www.w3.org/2000/svg" class="<%= icon_name %>-sprites" style="width:0; height:0; visibility:hidden;">
         <% if(defs) { %>
         <defs>
             <%= defs %>
         </defs>
-        <% } %>
+        <% } %>    
         <% _.forEach( icons, function( icon ){ %>
-        <symbol id="si-<%= icon.id %>" viewBox="<%= icon.svg.viewBox %>">
+        <symbol id="<%= icon_name %>-<%= icon.id %>" class="<%= icon_name %>-symbol <%= icon_name %>-symbol-<%= icon.id %>" viewBox="<%= icon.svg.viewBox %>">
             <% if (icon.title) {%>
             <title>
                 <%= icon.title %>
@@ -114,7 +114,6 @@
         </symbol>
         <% }); %>
     </svg>
-
         
     <h1>图标浏览</h1>
 
@@ -122,15 +121,15 @@
         <% _.each( icons, function( icon ){ %>
         <div class="icon-box">
             <p>
-                #si-<%= icon.id %>
+                #<%= icon_name %>-<%= icon.id %>
             </p>
             <div class="icon-wrapper">
-                <svg class="si si-<%= icon.id %>">
-                    <use xlink:href="#si-<%= icon.id %>"></use>
+                <svg class="<%= icon_name %> <%= icon_name %>-<%= icon.id %>">
+                    <use xlink:href="#<%= icon_name %>-<%= icon.id %>"></use>
                 </svg>
             </div>
             <div class="icon-dev">
-                <pre><code id="code-si-<%= icon.id %>"><%= _.escape('<svg class="si si-') %><%= icon.id %><%= _.escape('">') %><%= _.escape('<use xlink:href="#si-') %><%= icon.id %><%= _.escape('"></use>') %><%= _.escape('</svg>') %></code></pre>
+                <pre><code id="code-<%= icon_name %>-<%= icon.id %>"><%= _.escape('<svg class="'+ icon_name +' '+ icon_name +'-') %><%= icon.id %><%= _.escape('">') %><%= _.escape('<use xlink:href="#'+ icon_name +'-') %><%= icon.id %><%= _.escape('"></use>') %><%= _.escape('</svg>') %></code></pre>
             </div>
         </div>
         <% }); %>
